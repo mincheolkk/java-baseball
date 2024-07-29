@@ -13,12 +13,11 @@ import java.util.Scanner;
 
 public class BaseballGame {
 
-    private static final Computer computer = new Computer();
-    private static final Referee referee = new Referee();
-    private static final InputProvider inputProvider = new Input(new Scanner(System.in));
-    private static final GameManager gameManager = new GameManager(new MessagePrinter(), inputProvider);
-
     public static void launch() {
+        final Computer computer = new Computer();
+        final Referee referee = new Referee();
+        final InputProvider inputProvider = new Input(new Scanner(System.in));
+        final GameManager gameManager = new GameManager(new MessagePrinter(), inputProvider);
 
         boolean isApplicationOver = false;
         while (!isApplicationOver) {
