@@ -1,20 +1,24 @@
 package baseball.domain;
 
+import baseball.presentation.NumberGenerator;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Computer {
 
     private static final int COMPUTER_DIGITS_SIZE = 3;
+    private final NumberGenerator randomNumberGenerator;
+
+
+    public Computer(NumberGenerator randomNumberGenerator) {
+        this.randomNumberGenerator = randomNumberGenerator;
+    }
 
     public List<Integer> generateRandomDigits() {
         List<Integer> digits = new ArrayList<>();
 
         while (digits.size() < COMPUTER_DIGITS_SIZE) {
-            Random random = new Random();
-            int randomNumber = random.nextInt(9) + 1;
-            addToDigits(digits, randomNumber);
+            addToDigits(digits, randomNumberGenerator.generate());
         }
 
         return digits;
