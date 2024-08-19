@@ -2,11 +2,10 @@ package baseball.domain;
 
 import java.util.List;
 
+import static baseball.domain.CallResult.*;
+
 public class Referee {
 
-    private static final String BALL_CALL = "볼";
-    private static final String STRIKE_CALL = "스트라이크";
-    private static final String NOTHING_CALL = "낫싱";
     private static final String SPACE_CHARACTER = " ";
     private static final int INIT_COUNT = 0;
     private static final int OUT_COUNT = 3;
@@ -29,7 +28,7 @@ public class Referee {
     public String getCallMessage() {
         String callMessage = generateCallMessage();
         if (callMessage.isEmpty()) {
-            callMessage = NOTHING_CALL;
+            callMessage = NOTHING_CALL.getDescription();
         }
         return callMessage;
     }
@@ -63,13 +62,13 @@ public class Referee {
         StringBuilder call = new StringBuilder();
         if (ballCount != INIT_COUNT) {
             call.append(ballCount)
-                    .append(BALL_CALL)
+                    .append(BALL_CALL.getDescription())
                     .append(SPACE_CHARACTER);
         }
 
         if (strikeCount != INIT_COUNT) {
             call.append(strikeCount)
-                    .append(STRIKE_CALL);
+                    .append(STRIKE_CALL.getDescription());
         }
 
         return call.toString().trim();
