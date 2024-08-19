@@ -12,16 +12,17 @@ public class Referee {
 
     private int ballCount = INIT_COUNT;
     private int strikeCount = INIT_COUNT;
-    private List<Integer> computerDigits;
 
-    public void keepComputerDigits(List<Integer> computerDigits) {
-        this.computerDigits = computerDigits;
-    }
+    public boolean judge(ComputerDigit computerDigit, UserDigit userDigit) throws IllegalAccessException {
+        if (!computerDigit.getGameId().equals(userDigit.getGameId())) {
+            throw new IllegalAccessException("gameId가 일치하지 않습니다.");
+        }
 
-    public boolean judge(List<Integer> userDigits) {
         resetCounts();
-        compareDigits(userDigits);
-
+        compareDigits(
+                List.of(computerDigit.getFirstNumber(), computerDigit.getSecondNumber(), computerDigit.getThirdNumber()),
+                List.of(userDigit.getFirstNumber(), userDigit.getSecondNumber(), userDigit.getThirdNumber())
+        );
         return isOut();
     }
 
@@ -38,13 +39,13 @@ public class Referee {
         strikeCount = INIT_COUNT;
     }
 
-    private void compareDigits(List<Integer> userDigits) {
+    private void compareDigits(List<Integer> computerDigits, List<Integer> userDigits) {
         for (int index = 0; index < computerDigits.size(); index++) {
-            countBallOrStrike(userDigits, index);
+            countBallOrStrike(computerDigits, userDigits, index);
         }
     }
 
-    private void countBallOrStrike(List<Integer> userDigits, int index) {
+    private void countBallOrStrike(List<Integer> computerDigits, List<Integer> userDigits, int index) {
         Integer userDigit = userDigits.get(index);
         Integer computerDigit = computerDigits.get(index);
         if (userDigit.equals(computerDigit)) {
